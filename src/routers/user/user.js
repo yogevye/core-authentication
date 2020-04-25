@@ -1,10 +1,14 @@
 const express = require('express');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 const passportConf = require('../../passport/passport')
 const {auth, authAndValidateUser} = require('../../middleware/auth');
 const {login, signUp, logout, logoutAll} = require('./user-handler/user-handler');
 
 const router = express.Router();
+
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({extended: false}));
 
 router.post('/', signUp);
 
