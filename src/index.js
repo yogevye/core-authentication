@@ -1,5 +1,5 @@
 const express = require('express')
-const userRouter = require('./routers/user')
+const userRouter = require('./routers/user/user')
 const bodyParser = require('body-parser');
 
 const port = process.env.PORT
@@ -10,7 +10,7 @@ const app = express()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(userRouter)
+app.use('/users', userRouter);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
