@@ -32,7 +32,7 @@ const auth = async(req, res, next) => {
 const validateToken = (token) => {
     const tokenData = jwt.verify(token, process.env.JWT_KEY);
     if(!tokenData || !data.creationTime || new Date().getTime() > (tokenData.creationTime + expiryDelta)){
-        throw new Error('token expired');
+        throw new Error(`token expired. userId: ${tokenData.id}`);
     }
     return {tokenData};
 };
@@ -40,7 +40,7 @@ const validateToken = (token) => {
 const validateUser = async (tokenData, token) =>{
     const user = await User.findOne({ _id: tokenData.id, 'tokens.token': token });
     if (!user) {
-        throw new Error('user doesnot exist')
+        throw new Error('user does not exist')
     }
     return user;
 };
